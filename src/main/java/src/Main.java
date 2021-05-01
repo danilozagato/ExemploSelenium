@@ -41,12 +41,6 @@ public class Main {
                 botao.click();
             }
         }
-        try {
-            File printscreen = ((TakesScreenshot) webDriver).getScreenshotAs(OutputType.FILE);
-            FileUtils.copyFile(printscreen, new File("./teste.png"));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
 
         System.out.println(botoes.size());
 
