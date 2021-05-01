@@ -1,25 +1,30 @@
 package src;
 
-import io.github.bonigarcia.wdm.config.DriverManagerType;
-import org.apache.commons.io.FileUtils;
-import org.openqa.selenium.OutputType;
-import org.openqa.selenium.TakesScreenshot;
-import org.openqa.selenium.WebDriver;
-import src.page.GooglePage;
-import src.webdriverfactor.WebDriverFactory;
+import io.github.bonigarcia.wdm.WebDriverManager;
 
-import java.io.File;
-import java.io.IOException;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
+import src.page.HLTVHomePage;
+
+import java.util.Map;
 
 public class Main {
 
-    public static void main(String[] args) throws IOException {
-        WebDriver webDriver = new WebDriverFactory().getWebDriver(DriverManagerType.CHROME);
-        webDriver.get("https://www.google.com/");
-        GooglePage googlePage = new GooglePage(webDriver);
-        googlePage.pesquisar("Counter Strike");
-        File scrFile = ((TakesScreenshot)webDriver).getScreenshotAs(OutputType.FILE);
-        FileUtils.copyFile(scrFile, new File("./image.png"));
+    public static void main(String[] args){
+        ChromeOptions chromeOptions = new ChromeOptions();
+        WebDriverManager.chromedriver().setup();
+        chromeOptions.setExperimentalOption("prefs", Map.of("profile.default_content_setting_values.cookies", 2));
+        chromeOptions.addArguments("--start-maximized");
+        WebDriver webDriver = new ChromeDriver(chromeOptions);
+        webDriver.get("https://www.hltv.org/");
+
+
+        HLTVHomePage hltvHomePage = new HLTVHomePage(webDriver);
+        hltvHomePage.clickSignIn();
+        hltvHomePage.login();
+
         webDriver.quit();
     }
 }
