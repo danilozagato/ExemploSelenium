@@ -4,13 +4,13 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 
-public class IEDriverFactory {
+public final class IEDriverFactory {
 
-    private WebDriver webDriver;
+    private WebDriver driver;
 
-    public WebDriver generateIEDriver() {
+    protected WebDriver generateIEDriver() {
         WebDriverManager.iedriver().setup();
-        webDriver = new InternetExplorerDriver();
-        return webDriver;
+        driver = new InternetExplorerDriver();
+        return driver;
     }
 }

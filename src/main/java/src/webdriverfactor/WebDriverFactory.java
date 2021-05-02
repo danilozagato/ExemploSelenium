@@ -2,8 +2,9 @@ package src.webdriverfactor;
 
 import io.github.bonigarcia.wdm.config.DriverManagerType;
 import org.openqa.selenium.WebDriver;
+import src.webdriverfactor.utils.IWebDriverFactory;
 
-public class WebDriverFactory implements IWebDriverFactory{
+public class WebDriverFactory implements IWebDriverFactory {
 
     @Override
     public WebDriver getWebDriver(DriverManagerType driverManagerType) {

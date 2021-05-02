@@ -5,18 +5,20 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 
+import java.time.Duration;
 import java.util.Map;
 
-public class ChromeDriverFactory {
+public final class ChromeDriverFactory {
 
-    private WebDriver webDriver;
+    private WebDriver driver;
     private ChromeOptions chromeOptions = new ChromeOptions();
 
-    public WebDriver generateChromeDriver() {
+    protected WebDriver generateChromeDriver() {
         WebDriverManager.chromedriver().setup();
         chromeOptions.setExperimentalOption("prefs", Map.of("profile.default_content_setting_values.cookies", 2));
         chromeOptions.addArguments("--start-maximized");
-        webDriver = new ChromeDriver(chromeOptions);
-        return webDriver;
+        driver = new ChromeDriver(chromeOptions);
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
+        return driver;
     }
 }
